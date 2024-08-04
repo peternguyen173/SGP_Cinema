@@ -1,0 +1,105 @@
+/* auth.css */
+
+.authout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 250px;
+    max-height: 150px;
+    height: 100%;
+}
+
+.authin {
+    display: flex;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 800px;
+    max-height: 400px;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+.authin .left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.authin .right {
+    flex: 2;
+    justify-content: center;
+}
+
+.authin .img {
+    width: 200px;
+    height: 100px;
+}
+
+.authin form {
+    display: flex;
+    flex-direction: column;
+}
+
+.authin .forminput_cont {
+    margin-bottom: 20px;
+
+}
+
+.authin label {
+    font-weight: bold;
+}
+
+.authin input[type="text"],
+.authin input[type="password"],
+.authin input[type="number"],
+.authin input[type="date"] {
+    /* max-width: 500px; */
+    padding: 0;
+    margin: 0px;
+    width: 480px;
+    /* width: ; */
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.authin .formerror {
+    color: red;
+    font-size: 14px;
+}
+
+
+
+.authin .main_button {
+    /* width: 90%; */
+    display: block;
+    width: 500px;
+    height: 45px;
+    padding: 0px;
+    background-color: #B84949;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0px;
+    margin-top: 10px;
+    font-size: 20px bold;
+}
+
+.authin .main_button:hover {
+    background-color: #C13939;
+}
+
+.authlink {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.authlink a {
+    color: #C13939;
+}
+

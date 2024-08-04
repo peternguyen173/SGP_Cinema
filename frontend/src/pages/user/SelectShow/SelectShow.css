@@ -1,0 +1,122 @@
+.buytickets .head {
+    background-color:  #333444;
+    padding: 20px;
+}
+
+.buytickets {
+    background-color: rgb(228, 228, 228);
+    min-height: 100vh;
+    width: 100%;
+}
+
+.buytickets .s1 {
+    background-color: white;
+}
+
+.buytickets .head h1 {
+    color: white;
+    font-size: 35px;
+    font-weight: 600;
+}
+
+
+.buytickets .head h3 {
+    color: gray;
+    font-size: 13px;
+    font-weight: 600;
+
+    border: 1px solid gray;
+    padding: 5px 20px;
+    border-radius: 25px;
+    width: fit-content;
+}
+
+.buytickets .screens {
+    width: 90%;
+    margin: 20px auto;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.buytickets .screens .screen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+    padding: 10px;
+    /* border-radius: 10px; */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.buytickets .screens .screen:last-child {
+    border-bottom: none;
+}
+
+.buytickets .screens .screen h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.buytickets .screens .screen h3 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* BuyTicketsPage.css */
+
+.react-datepicker {
+    display: flex;
+    flex-direction: row;
+}
+
+.react-datepicker__header {
+    flex-grow: 1;
+}
+
+.react-datepicker__month-container {
+    flex-grow: 1;
+}
+
+.react-datepicker__month {
+    width: auto !important;
+    max-width: 100%;
+}
+
+.showtime {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.showtime p {
+    padding-top: 5px;
+    font-size: 17px;
+    color: black;
+}
+
+.showtimes {
+    width: 100%;
+}
+
+.a {
+    width: 100%;
+}
+.theme_btn1 {
+    background-color: rgb(248, 68, 100);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+.linkstylenone {
+    text-decoration: none;
+    color: white;
+    margin-right: 20px;
+}

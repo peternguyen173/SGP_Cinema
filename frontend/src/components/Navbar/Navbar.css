@@ -1,0 +1,164 @@
+nav {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+}
+
+nav img {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.searchbox {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 4px;
+    padding: 10px;
+    margin-left: 10px;
+    width: 500px;
+}
+
+.searchbtn {
+    margin-right: 5px;
+    font-size: 1.2rem;
+    color: black;
+}
+
+input[type="text"] {
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.theme_icon1 {
+    font-size: 1.5rem;
+}
+
+.dropdown {
+    display: flex;
+    align-items: center;
+    margin: 0px 20px;
+    cursor: pointer;
+}
+
+.dropicon {
+    font-size: 20px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.user-info a {
+    margin-top: 2px;
+    padding-right: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.fd {
+    margin-top: 1.5px;
+}
+
+.q {
+    margin-top: 2px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: white;
+    padding-top: 0;
+    padding-left: 8px;
+    padding-right: 10px;
+    border: 1px solid white;
+}
+
+.notification-bar {
+    background-color: #f0f0f0;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.notification-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.notification-item {
+    margin-bottom: 5px;
+    color: white; /* Ensure text is white */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.notifications-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 300px;
+    background-color: #333; /* Dark background for better contrast */
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.notification-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.notification-badge {
+    background-color: red; /* Đỏ khi có thông báo mới */
+    color: white;
+    padding: 2px 5px;
+    border-radius: 50%;
+    font-size: 12px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+.notification-item {
+    padding: 10px;
+    cursor: pointer;
+    color: white; /* Ensure text is white */
+}
+
+.notification-item:hover {
+    background-color: #444; /* Slightly lighter background on hover */
+}
+
+.notification-item.unread {
+    font-weight: bold; /* Bold font for unread notifications */
+}
+
+
+
+
+
+
