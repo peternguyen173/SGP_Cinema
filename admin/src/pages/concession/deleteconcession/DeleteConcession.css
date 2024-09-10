@@ -1,0 +1,50 @@
+.manage-concessions {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.manage-concessions h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.manage-concessions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.manage-concessions li {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.manage-concessions img {
+    border-radius: 4px;
+    max-width: 100px;
+    height: auto;
+    margin-right: 15px;
+}
+
+.manage-concessions button {
+    padding: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.manage-concessions button:hover {
+    background-color: #d32f2f;
+}
+
+.manage-concessions p {
+    margin: 5px 0;
+}

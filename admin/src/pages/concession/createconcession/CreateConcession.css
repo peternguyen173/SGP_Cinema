@@ -1,0 +1,36 @@
+.create-concession {
+    width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.create-concession h2 {
+    text-align: center;
+}
+
+.create-concession form {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-concession label {
+    width: 60px;
+    margin-bottom: 5px;
+}
+
+.create-concession input,
+.create-concession textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.create-concession button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+}

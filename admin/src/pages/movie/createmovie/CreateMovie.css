@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo+Paaji');
+
+body {
+    margin: 0;
+}
+
+section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Baloo Paaji', cursive;
+    margin: 0;
+    padding: 5px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+input {
+    outline: none;
+    border: 0;
+    background-color: #E1E1E1;
+    border-radius: 5px;
+    font-family: 'Baloo Paaji', cursive;
+    box-sizing: border-box;
+    transition: box-shadow 0.15s;}
+
+input[type="time"],
+input[type="date"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.hu {
+    display: flex;
+}
+
+.hi {
+    padding-right: 30px;
+    text-align: left;
+}
+
+.outform {
+    width: 400px;
+}
+
+.ntd3 {
+    width: 560px;
+}
+
+.ndt31 {
+    width: 100px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Canh trái */
+    /* align-items: center;  Canh giữa */
+    /* align-items: flex-end; Canh phải */
+}
+
+.form-item {
+    margin-bottom: 10px;
+}
+
+label {
+    display: inline-block;
+    width: 100px; /* Đặt độ rộng cho nhãn */
+    text-align: left; /* Canh phải nhãn */
+    margin-right: 10px;
+}
+
+.hh {
+    width: 120px;
+    height: 56px;
+}
+
+.f {
+    display: flex;
+    width: 600px;
+}
+

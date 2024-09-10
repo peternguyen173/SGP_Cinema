@@ -1,0 +1,120 @@
+.sidebar {
+    position: fixed;
+    width: 250px;
+    height: 100%;
+    background: #343a40;
+    transition: all 0.3s;
+    overflow: hidden;
+    left: 0;
+}
+
+.sidebar.open {
+    width: 80px;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #212529;
+    color: #fff;
+}
+
+.sidebar-header .toggle-btn {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.sidebar-title {
+    margin: 0;
+    font-size: 20px;
+}
+
+.sidebar-title.hidden {
+    display: none;
+}
+
+.sidebar .components {
+    padding: 20px 0;
+    list-style: none;
+}
+
+.sidebar .components li {
+    padding: 0 20px;  /* Ensures equal padding on the sides */
+    margin-bottom: 10px; /* Adds space between the items */
+}
+
+.sidebar .components li a.sidebar-link {
+    color: #adb5bd;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;  /* Adds consistent padding */
+}
+
+.sidebar .components li a.sidebar-link .link-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.sidebar .components li a.sidebar-link:hover {
+    color: #fff;
+    background: #495057;
+    border-radius: 4px; /* Makes hover background slightly rounded */
+}
+
+.sidebar .components li a i {
+    margin-right: 15px; /* Keeps icons close to text */
+    width: 20px; /* Ensures consistent icon size and alignment */
+    text-align: center; /* Aligns icons and text better */
+}
+
+.sidebar .components ul {
+    padding-left: 20px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+.sidebar .components ul.show {
+    max-height: 200px; /* Adjust based on content size */
+}
+
+.sidebar .components ul li a.dropdown-item {
+    color: #adb5bd;
+    font-size: 16px;
+    padding: 5px 0;
+}
+
+.sidebar .components ul li a.dropdown-item:hover {
+    color: #fff;
+}
+
+.sidebar.open .sidebar-header h3,
+.sidebar.open .components li a .link-text {
+    display: none;
+}
+
+.sidebar.open .components li a i {
+    font-size: 24px;
+    text-align: center;
+    width: 100%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.rotate {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease-in-out;
+}
+
+.link-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}

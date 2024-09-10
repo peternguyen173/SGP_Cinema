@@ -38,11 +38,13 @@
 
 .moviecard .details {
     padding: 5px 10px;
+    background-color:  #1a1a1a;
 }
 
 .moviecard .details .title {
     font-size: 16px;
     font-weight: 600;
+
 }
 
 

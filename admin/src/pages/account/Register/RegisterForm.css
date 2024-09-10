@@ -1,0 +1,44 @@
+button:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+.custom-register-button {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #0d6efd;
+    border: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-register-button:hover {
+    background-color: #0b5ed7;
+}
+
+.custom-register-button:active {
+    background-color: #0a58ca;
+    transform: scale(0.98);
+}
+
+.custom-register-button:focus {
+    outline: none;
+}
+
+.icon-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.icon-button:hover {
+    color: #ccc;
+}
+
+.icon-button:focus {
+    outline: none;
+}
