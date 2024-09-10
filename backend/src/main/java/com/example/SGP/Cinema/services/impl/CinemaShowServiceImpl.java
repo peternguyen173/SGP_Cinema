@@ -1,6 +1,7 @@
 package com.example.SGP.Cinema.services.impl;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -157,8 +158,9 @@ public class CinemaShowServiceImpl implements CinemaShowService {
 	@Override
 	public List<ShowSeatResponse> getAllShowSeats(String showID) {
 		List<ShowSeatResponse> seatsInfo = new ArrayList<>();
-		
+
 		List<ShowSeat> seats = showSeatREPO.findByShowId(showID);
+		// Sort seats by rowIndex and then by colIndex
 		for (ShowSeat seat : seats) {
 			ShowSeatResponse info = new ShowSeatResponse(seat);
 			seatsInfo.add(info);

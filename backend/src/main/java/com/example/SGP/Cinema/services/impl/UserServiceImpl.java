@@ -286,6 +286,17 @@ public class UserServiceImpl implements UserService {
 		return new MyApiResponse("Set new password");
 	}
 
+	@Override
+	public MyApiResponse setNewPassword2(String username, String password) {
+		Account user = UserREPO.getByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("User not found"));
+		if(!inputValidationSER.checkInput(password))
+			throw new MyBadRequestException("Contain illegal character");
+		user.setPassword(passwordEncoder.encode(password));
+		UserREPO.save(user);
+		return new MyApiResponse("Set new password");
+	}
+
 	@Scheduled(fixedDelay = 5000)
 	public void sendRestCodeMail() {
 		while (this.mailQueue.size() != 0) {

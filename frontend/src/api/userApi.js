@@ -65,6 +65,13 @@ export const removeAdminRole = async (username, token) => {
         return response.data;
 };
 
+export const setNewPassword2 = async (token, newPassword) => {
+    const response = await axiosClient.post('/api/user/setnewpassword',{password: newPassword}, {
+        headers:{
+            Authorization: `Bearer ${token}`,
+        }
+    })
+}
 // Function to get current user's information
 export const getCurrentUserInfo = async (token) => {
         const response = await axiosClient.get('/api/user/me', {

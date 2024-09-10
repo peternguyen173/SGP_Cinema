@@ -30,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -143,7 +144,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 				"Movie-Project verify your email",
 				"This is a link to verify your account. Please, do not share it to anyone:\n" +
 						this.base_verified_url + code));
-		return new MyApiResponse("Please, go to your email to verify your account");
+		return new MyApiResponse("Please, go to your email to verify your account", HttpStatus.OK);
 	}
 
 	@Override
@@ -160,7 +161,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(username, password));
 		} catch (BadCredentialsException e) {
-			throw new MyAccessDeniedException("Username or password is wrong");
+			throw new MyAccessDeniedException("Username or password is wrong1");
 		}
 
 		Account user = userSER.getRawUserByUsername(username);
@@ -209,7 +210,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		userSER.addRoleToUser(user.getUsername(), ERole.ROLE_USER);
 
 		userTmpREPO.deleteByUsername(user.getUsername());
-		response.setHeader("Location", this.redirectURL + "/login");
+		response.setHeader("Location", this.redirectURL + "/auth/siginin");
 		response.setStatus(302);
 	}
 

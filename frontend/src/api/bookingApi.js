@@ -65,3 +65,19 @@ export const setBookingStatusFromUsername = async (username, booking_id, status,
     });
     return response.data;
 };
+export const getLastestBookingByUsername = async (token) => {
+    const response = await axiosClient.get(`/api/booking/latest`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+};
+
+export const updateBookingStatus = async (token, bookingId) => {
+    const response = await axiosClient.put(`/api/booking/updateStatus/${bookingId}`, null, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+};
+

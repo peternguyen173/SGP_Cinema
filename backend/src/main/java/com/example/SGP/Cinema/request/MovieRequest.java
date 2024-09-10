@@ -31,10 +31,10 @@ public class MovieRequest {
 	private List<String> genre;
 	
 	@JsonProperty("image")
-	private String image;
+	private byte[] image;
 
 	@JsonProperty("large_image")
-	private String large_image;
+	private byte[] large_image;
 	
 	@JsonProperty("trailer")
 	private String trailer;
@@ -96,13 +96,13 @@ public class MovieRequest {
 	public void setGenre(List<String> genre) {
 		this.genre = genre;
 	}
-	public String getImage() {
+	public byte[] getImage() {
 		return image;
 	}
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
-	public String getLargeImage() {
+	public byte[] getLargeImage() {
 		return this.large_image;
 	}
 	public void setLargeImage(String large_image) {

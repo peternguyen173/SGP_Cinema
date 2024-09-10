@@ -9,6 +9,7 @@ import com.example.SGP.Cinema.entities.*;
 import com.example.SGP.Cinema.entities.enumModel.*;
 import com.example.SGP.Cinema.exception.*;
 import com.example.SGP.Cinema.repository.*;
+import com.example.SGP.Cinema.request.BookingConcessionRequest;
 import com.example.SGP.Cinema.request.BookingRequest;
 import com.example.SGP.Cinema.request.PaymentRequest;
 import com.example.SGP.Cinema.response.BookingResponse;
@@ -20,14 +21,14 @@ import com.example.SGP.Cinema.utils.VNPay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
+import org.webjars.NotFoundException;
 
 
 @Service
 public class BookingServiceImpl implements BookingService {
 	
-	final private int MAXSPAM = 3; // per user
-	final private int MAX_TICKETS_PER_SHOW = 5; // for per user
+	final private int MAXSPAM = 10; // per user
+	final private int MAX_TICKETS_PER_SHOW = 10; // for per user
 	final private int TIMEOUT = 15; // in minutes
 	final private long CHECK_PENDING_BOOKING_IS_TIMEOUT = 60000; // in miliseconds
 	final private long CHECK_QUEUE_OF_SPAM_USERS = 30000; // in miliseconds
@@ -37,18 +38,21 @@ public class BookingServiceImpl implements BookingService {
 	
 	@Autowired 
 	private UserRepository userREPO;
-	
+
+
 	@Autowired
 	private ShowSeatRepository showSeatREPO;
 	
 	@Autowired
 	private CinemaShowRepository showREPO;
-	
+
 	@Autowired
 	private UserService userSER;
 	
 	@Autowired
 	private BookingRepository bookingREPO;
+
+	@Autowired ConcessionRepository concessionREPO;
 	
 	@Autowired
 	private PaymentRepository paymentREPO;
@@ -64,8 +68,8 @@ public class BookingServiceImpl implements BookingService {
 		return bookedSeat == 0;
 	}
 
-	private ShowSeat getSeatFromStatus(Long seat_id, CinemaShow show, ESeatStatus status) {
-		ShowSeat seat = showSeatREPO.findByCinemaSeatIdAndShowId(seat_id, show.getId()).orElseThrow(() -> new MyNotFoundException("Not found seat id: " + seat_id));
+	private ShowSeat getSeatFromStatus(String seat_id, CinemaShow show, ESeatStatus status) {
+		ShowSeat seat = showSeatREPO.findByIdAndShowId(seat_id, show.getId()).orElseThrow(() -> new MyNotFoundException("Not found seat id: " + seat_id));
 		if (seat.getStatus().equals(status.name()))
 			return seat;
 		return null;
@@ -97,9 +101,18 @@ public class BookingServiceImpl implements BookingService {
 //		this.setStatusForBookingAndSeats(booking, BookingStatus.PENDING, ESeatStatus.PENDING);
 //	}
 	
-	private Long[] removeDuplicate(List<Long> array) {
-		Set<Long> set = new HashSet<>(array);
-		return set.toArray(new Long[0]);
+	private String[] removeDuplicate(List<String> array) {
+		Set<String> set = new HashSet<>(array);
+		return set.toArray(new String[0]);
+	}
+
+	@Override
+	public BookingResponse getLatestBooking(String username) {
+		// Implement the logic to fetch the latest booking for the user
+		// This could involve querying the database for the latest booking
+		// by the username and returning the booking response
+		Booking booking = bookingREPO.findFirstByUserUsernameOrderByCreateAtDesc(username);
+		return booking != null ? new BookingResponse(booking) : null;
 	}
 
 	@Override
@@ -119,7 +132,7 @@ public class BookingServiceImpl implements BookingService {
 			throw new MyLockedException("Sorry, seats of this show are full. Please choose another show");
 		
 		List<ShowSeat> seats = new ArrayList<>();
-		for (Long seat_id : this.removeDuplicate(bookingReq.getSeatsId())) {
+		for (String seat_id : this.removeDuplicate(bookingReq.getSeatsId())) {
 			ShowSeat seat = this.getSeatFromStatus(seat_id, show, ESeatStatus.AVAILABLE);
 			if (seat == null)
 				throw new MyConflictExecption("Seat ID " + seat_id + " is reserved");
@@ -140,10 +153,31 @@ public class BookingServiceImpl implements BookingService {
 		booking.setStatus(BookingStatus.PENDING);
 		booking.setPaymentStatus(PaymentStatus.PENDING);
 		booking.setFinalPrice(bookingReq.getFinalPrice());
-
+		for (BookingConcessionRequest concessionRequest : bookingReq.getConcessions()) {
+			Concession concession = concessionREPO.findById(concessionRequest.getConcessionId())
+					.orElseThrow(() -> new NotFoundException("Concession not found with id " + concessionRequest.getConcessionId()));
+			BookingConcessionQuantity bookingConcession = new BookingConcessionQuantity(booking, concession, concessionRequest.getQuantity());
+			booking.getBookingConcessions().add(bookingConcession);
+		}
 		Booking bookingSaved = bookingREPO.save(booking);
 		return new BookingResponse(bookingSaved);
 	}
+
+	@Override
+	public MyApiResponse updateBookingStatus(String bookingId, String username, BookingStatus bookingStatus, PaymentStatus paymentStatus) throws Exception {
+		Booking booking = bookingREPO.findById(bookingId).orElseThrow(() -> new Exception("Booking not found"));
+
+		if (!booking.getUser().getUsername().equals(username)) {
+			throw new Exception("Unauthorized");
+		}
+
+		booking.setStatus(bookingStatus);
+		booking.setPaymentStatus(paymentStatus);
+		bookingREPO.save(booking);
+
+		return new MyApiResponse("Booking status updated successfully");
+	}
+
 
 	@Override
 	public MyApiResponse cancleBooking(String username, String booking_id) {

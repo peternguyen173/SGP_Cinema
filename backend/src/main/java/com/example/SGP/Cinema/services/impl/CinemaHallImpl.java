@@ -3,6 +3,7 @@ package com.example.SGP.Cinema.services.impl;
 import java.util.List;
 
 import com.example.SGP.Cinema.entities.CinemaHall;
+import com.example.SGP.Cinema.entities.CinemaSeat;
 import com.example.SGP.Cinema.exception.MyNotFoundException;
 import com.example.SGP.Cinema.repository.CinemaHallRepository;
 import com.example.SGP.Cinema.request.CinemaHallRequest;
@@ -41,10 +42,10 @@ public class CinemaHallImpl implements CinemaHallService {
 		hallREPO.save(c);
 		
 		CinemaHall hall = hallREPO.findByName(c.getName()).get();
-		hallSeatSER.CreateListSeats(hall);
-		
+
 		return new MyApiResponse("Success");
 	}
+
 
 	@Override
 	public MyApiResponse editHall(String hallID, CinemaHallRequest c) {

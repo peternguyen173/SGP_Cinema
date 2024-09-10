@@ -20,6 +20,6 @@ public interface MovieRepo extends
 	
 	List<Movie> findByTitleContaining(String title, Pageable pages);
 	
-	@Query("SELECT m FROM Movie m JOIN m.genres g WHERE g.genre LIKE %:keyword%")
-	List<Movie> findByGenresNameContainning(@Param("keyword") String keyword, Pageable pages);
+//	@Query("SELECT m FROM Movie m JOIN m.genres g WHERE g.genre LIKE %:keyword%")
+//	List<Movie> findByGenresNameContainning(@Param("keyword") String keyword, Pageable pages);
 }

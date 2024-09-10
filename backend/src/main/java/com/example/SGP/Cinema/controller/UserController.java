@@ -91,7 +91,7 @@ public class UserController {
              )
         }
 	)
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	public ResponseEntity<?> getUserByUsername(@PathVariable(value = "username") String username) {
 		return ResponseEntity.ok(userSER.loadUserByUsername(username));
 	}
@@ -244,7 +244,7 @@ public class UserController {
 		     )
 		}
 	)
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	public ResponseEntity<AccountSummaryResponse> getMe(Principal principal) {
 		return ResponseEntity.ok(userSER.getUserByName(principal.getName()));
 	}
@@ -318,4 +318,34 @@ public class UserController {
 	public ResponseEntity<MyApiResponse> setPassword(@RequestParam @Valid String code, @RequestBody @Valid NewPasswordRequest password) {
 		return ResponseEntity.ok(userSER.setNewPassword(code.replace(' ', '+'), password.getPassword()));
 	}
+
+	@PostMapping("/setnewpassword")
+	@Operation(
+			summary = "Set new password",
+			responses = {
+					@ApiResponse( responseCode = "200", description = "User's roles.",
+							content = @Content( mediaType = "application/json", schema = @Schema(implementation = Role.class))),
+					@ApiResponse( responseCode = "401", description = "Invalid token.",
+							content = @Content( mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+					@ApiResponse( responseCode = "403", description = "User do not have permission to get this data.",
+							content = @Content( mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
+			},
+			parameters = {
+					@Parameter( name = "Authorication", in = ParameterIn.HEADER,
+							schema = @Schema(type = "string"), example = "Bearer <token>",
+							required = true
+					)
+			}
+	)
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
+	public ResponseEntity<MyApiResponse> setNewPassword(Principal principal, @RequestBody @Valid NewPasswordRequest password) {
+		return ResponseEntity.ok(userSER.setNewPassword2(principal.getName(), password.getPassword()));
+	}
+
+	@PostMapping("/adminsetnewpassword")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<MyApiResponse> adminSetNewPassword(Principal principal, @RequestBody @Valid NewPasswordRequest password) {
+		return ResponseEntity.ok(userSER.setNewPassword2(principal.getName(), password.getPassword()));
+	}
+
 }

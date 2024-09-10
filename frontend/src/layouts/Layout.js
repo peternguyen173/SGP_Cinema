@@ -1,24 +1,17 @@
 // Layout.js
 import React from 'react';
 import Navbar from "../components/Navbar/Navbar";
-
+import Footer from "../components/Footer/Footer";
+import "./Layout.css"
 const Layout = ({ children }) => {
 
     return (
-        <div>
-            <Navbar />
-            <main>
+        <div className="layout">
+            <Navbar/>
+            <main className="content">
                 {children}
             </main>
-            <div
-                style={{
-                    bottom: '0',
-                    backgroundColor: '#f1f1f1',
-                    textAlign: 'center',
-                    padding: '10px'
-                }}>
-                Footer
-            </div>
+            <Footer/>
         </div>
     );
 };

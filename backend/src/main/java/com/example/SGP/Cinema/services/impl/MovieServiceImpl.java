@@ -1,5 +1,6 @@
 package com.example.SGP.Cinema.services.impl;
 
+import com.example.SGP.Cinema.request.MovieRequest;
 import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class MovieServiceImpl implements MovieService{
 	
 	@Autowired
     private InputValidationFilter inputValidationSER;
-	
+
 	@Autowired
 	private GenreReposity genreREPO;
 	
@@ -79,12 +80,12 @@ public class MovieServiceImpl implements MovieService{
 		String key = inputValidationSER.sanitizeInput(keyword);
 		if (!inputValidationSER.checkInput(key))
         	throw new MyBadRequestException("Data containt illegal character");
-		
-		
+
+
 		List<Genre> genres = genreREPO.findByGenreContaining(key);
 		if (genres.isEmpty())
 			return new Object[0];
-		
+
 		List<MovieInfoResponse> movieInfoResponses = new ArrayList<>();
 //		Pageable pages = PageRequest.of(pageNumber, pageSize);
 //		List<Movie> movies = mRepo.findByGenresNameContainning(key, pages);
@@ -93,7 +94,7 @@ public class MovieServiceImpl implements MovieService{
 				movieInfoResponses.add(new MovieInfoResponse(movie));
 			}
 		}
-		
+
 		Set<MovieInfoResponse> movieSet = new HashSet<>(movieInfoResponses);
 		MovieInfoResponse[] uniqueMovies = movieSet.toArray(new MovieInfoResponse[0]);
 		return uniqueMovies;
@@ -124,20 +125,6 @@ public class MovieServiceImpl implements MovieService{
 				continue;
 			}
 			
-			Set<String> genreSet = new HashSet<>();
-			for (Genre genre : m.getGenres()) {
-			   genreSet.add(genre.getGenre());
-			}
-			
-			m.setGenres(new ArrayList<>());
-			for (String genre : genreSet) {
-			   Genre g = genreREPO.findByGenre(genre);	
-			   if (g == null) {
-			      g = new Genre();
-			      genreREPO.save(g);
-			   }
-			   m.getGenres().add(g);
-			}
 			mRepo.save(m);			
 		}
 		

@@ -42,28 +42,29 @@ const MovieCarousel = () => {
             {
                 movies &&
                 <div className='moviecarou'>
+                    <h2>Phim đang chiếu:</h2>
+
                     <Swiper
                         slidesPerView={1}
-                        spaceBetween={1}
                         pagination={{
                             clickable: true,
                         }}
                         breakpoints={{
                             '@0.00': {
                                 slidesPerView: 1,
-                                spaceBetween: 2,
+                                spaceBetween: 10,
                             },
                             '@0.75': {
                                 slidesPerView: 2,
-                                spaceBetween: 2,
+                                spaceBetween: 10,
                             },
                             '@1.00': {
                                 slidesPerView: 3,
-                                spaceBetween: 2,
+                                spaceBetween: 10,
                             },
                             '@1.50': {
                                 slidesPerView: 6,
-                                spaceBetween: 2,
+                                spaceBetween: 10,
                             },
                         }}
                         modules={[Pagination]}
@@ -74,10 +75,10 @@ const MovieCarousel = () => {
                                 return (
                                     <SwiperSlide key={Movie.id}>
                                         <Link to={`/movies/${Movie.id}`} className="linkstylenone">
-                                        <MovieCard
-                                            Movie={Movie}
-                                            user={user}
-                                        />
+                                            <MovieCard
+                                                Movie={Movie}
+                                                user={user}
+                                            />
                                         </Link>
                                     </SwiperSlide>
                                 )

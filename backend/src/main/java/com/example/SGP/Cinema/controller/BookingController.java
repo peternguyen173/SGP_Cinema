@@ -2,6 +2,8 @@ package com.example.SGP.Cinema.controller;
 
 import java.security.Principal;
 
+import com.example.SGP.Cinema.entities.enumModel.BookingStatus;
+import com.example.SGP.Cinema.entities.enumModel.PaymentStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,6 +75,17 @@ public class BookingController {
 		return ResponseEntity.ok().body(bookingSER.createBooking(principal.getName(), bookingReq));
 	}
 
+	@PutMapping("/updateStatus/{bookingId}")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<MyApiResponse> updateBookingStatus(@PathVariable String bookingId, Principal principal) {
+		try {
+			MyApiResponse response = bookingSER.updateBookingStatus(bookingId, principal.getName(), BookingStatus.BOOKED, PaymentStatus.PAID);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(new ErrorResponse(e.getMessage()), HttpStatus.FORBIDDEN);
+		}
+	}
+
 	@GetMapping("/getall")
 	@Operation(summary = "Get All User's Booking Information (User is required)", responses = {
 			@ApiResponse(responseCode = "200", description = "Ticket's information.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BookingResponse.class))),
@@ -111,6 +124,24 @@ public class BookingController {
 	public ResponseEntity<?> getAllBookingsFromUser(@Valid @PathVariable(value = "username") String username) {
 		return ResponseEntity.ok().body(bookingSER.listOfBooking(username));
 	}
+
+	@GetMapping("/latest")
+	@Operation(summary = "Get Latest Booking (User is required)", responses = {
+			@ApiResponse(responseCode = "200", description = "Get the latest booking's information.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = BookingResponse.class))),
+			@ApiResponse(responseCode = "404", description = "No bookings found for the user.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
+	}, parameters = {
+			@Parameter(name = "Authorization", in = ParameterIn.HEADER, schema = @Schema(type = "string"), example = "Bearer <token>", required = true)
+	})
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> getLatestBooking(Principal principal) {
+		BookingResponse latestBooking = bookingSER.getLatestBooking(principal.getName());
+		if (latestBooking != null) {
+			return ResponseEntity.ok().body(latestBooking);
+		} else {
+			return new ResponseEntity<>(new ErrorResponse("No bookings found for the user."), HttpStatus.NOT_FOUND);
+		}
+	}
+
 
 	@GetMapping("/user/{username}/{booking_id}")
 	@Operation(summary = "Get Booking From ID User (Admin is required)", responses = {

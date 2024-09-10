@@ -3,11 +3,15 @@
     padding: 10px;
 }
 
+
+
 .selectseatpage {
     background-color: rgb(228, 228, 228);
-    min-height: 100vh;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
+
 
 .selectseatpage .s1 {
     background-color: white;
@@ -228,9 +232,8 @@
     padding-bottom: 12px;
     background-color: white;
     margin: 20px;
-    margin-right: 0;
     border-radius: 10px;
-    box-shadow: 0px 0px 5px 0px #ccc;
+    box-shadow: 0px 0px 5px 0px ;
     width: 300px;
 }
 
@@ -241,7 +244,6 @@
     justify-content: space-between;
     background-color: white;
     border-radius: 10px;
-    width: 300px;
 
 }
 
@@ -249,6 +251,7 @@
     font-size: 15px;
     font-weight: 600;
     color: gray;
+    margin-left: 3.5rem;
 }
 
 .selectseat .totalcont .totalcont1 h3 {
@@ -321,7 +324,7 @@
 }
 
 .column2 {
-    flex: 4;
+    flex: 3;
 }
 
 
@@ -368,4 +371,221 @@ button {
     transform: translate(-50%, -50%);
     font-size: 20px;
     font-weight: bold;
+}
+
+/* Slide transition styles */
+.slide-left-enter {
+    opacity: 0;
+    transform: translateX(100%);
+}
+.slide-left-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 500ms, transform 500ms;
+}
+.slide-left-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+.slide-left-exit-active {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 500ms, transform 500ms;
+}
+
+.slide-right-enter {
+    opacity: 0;
+    transform: translateX(-100%);
+}
+.slide-right-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 500ms, transform 500ms;
+}
+.slide-right-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+.slide-right-exit-active {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 500ms, transform 500ms;
+}
+
+/* Fade transition styles */
+.fade-enter {
+    opacity: 0;
+}
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 500ms;
+}
+.fade-exit {
+    opacity: 1;
+}
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 500ms;
+}
+
+/* Concession Section */
+.concession {
+    max-height: 100%; /* Ensure it doesn't exceed 100% of its parent */
+    width: 70%; /* Total width of the concessions container */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto ;
+    background-color: #ecf0f1; /* Match this to the color of the section above */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: none; /* Adjust or remove if it causes visual issues */
+}
+
+
+.concessions-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Create 2 equal-width columns */
+    gap: 20px; /* Space between items */
+    width: 100%; /* Ensure the container takes the full width */
+    margin-top: 20px;
+}
+
+.concession-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.concession-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.concessions-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 equal-width columns */
+    gap: 20px; /* Space between items */
+    width: 100%;
+    margin-top: 20px;
+}
+
+.concession-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 90%; /* Reduce the width to fit content */
+    margin: auto; /* Center the item within its grid column */
+}
+
+.concession-image {
+    width: 120px; /* Adjust the image size */
+    height: auto;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.concession-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.concession-details h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.concession-details p {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #666;
+}
+
+.concession-quantity {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.concession-quantity button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.concession-quantity button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.concession-quantity input {
+    width: 40px;
+    text-align: center;
+    margin: 0 10px;
+    padding: 5px;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+}
+
+
+
+
+/* Styling for the totalcont1 section */
+.totalcont1 {
+    display: flex;
+    justify-content: center; /* Center the content within the container */
+    align-items: center;
+    background-color: #f7f7f7;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+
+}
+
+.totalcont1 .sum-area {
+    width: 40%; /* Sum area occupies 40% of the container width */
+    text-align: center;
+}
+
+.totalcont1 h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.totalcont1 h4 {
+    margin: 0;
+    margin-top: 0.5rem;
+    margin-bottom: 0.7rem;
+    color: #3498db;
+    font-size: 1.3em;
+}
+
+
+
+.linkstylenone {
+    text-decoration: none;
+}
+
+.previous-button-container {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    margin-top: 20px; /* Add some space at the top */
 }

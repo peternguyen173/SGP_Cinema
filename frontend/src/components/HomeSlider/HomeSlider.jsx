@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import './HomeSlider.css'
-
+import './HomeSlider.css';
 import { Navigation, Pagination, Mousewheel, Keyboard } from 'swiper/modules';
 
+
+// Import local image
+import img from './../../asset/banner.jpeg'; // Adjust the path to your assets folder
 
 const HomeSlider = () => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -39,28 +38,29 @@ const HomeSlider = () => {
             const response = await fetch(
                 `${process.env.REACT_APP_BACKEND_API}/banner/getbanners`,
                 {
-                    method: "GET",
+                    method: 'GET',
                     headers: {
-                        "Content-Type": "application/json",
+                        'Content-Type': 'application/json',
                     },
                 }
             );
 
             if (response.ok) {
                 const data = await response.json();
-                console.log("Banners fetched successfully:", data);
+                console.log('Banners fetched successfully:', data);
                 setBanners(data.banners); // Update banners from server
             } else {
-                console.error("Failed to fetch banners.");
+                console.error('Failed to fetch banners.');
             }
         } catch (error) {
-                console.error("Error:", error);
+            console.error('Error:', error);
         }
     };
 
-    return (
+    return (<div>
+        <br/>
+
         <div className='s'>
-            <h1>Banner</h1>
             <Swiper
                 cssMode={true}
                 navigation={true}
@@ -70,20 +70,33 @@ const HomeSlider = () => {
                 modules={[Navigation, Pagination, Mousewheel, Keyboard]}
                 className="mySwiper"
             >
-                {banners.map((banner, index) => (
-                    <SwiperSlide key={index}>
-                        <Image
-                            src={banner.imageUrl}
-                            alt=""
+                {banners.length > 0 ? (
+                    banners.map((banner, index) => (
+                        <SwiperSlide key={index}>
+                            <img
+                                src={img} // Use local image if imageUrl is not available
+                                alt=""
+                                width={width}
+                                height={height / 2}
+                                style={{ objectFit: 'cover' }}
+                            />
+                        </SwiperSlide>
+                    ))
+                ) : (
+                    <SwiperSlide>
+                        <img
+                            src={img}
+                            alt="Default Banner"
                             width={width}
-                            height={height / 2}
-                            style={{ objectFit: "cover" }}
+                            height={height*0.65}
+                            style={{ objectFit: 'cover' }}
                         />
                     </SwiperSlide>
-                ))}
+                )}
             </Swiper>
         </div>
-    )
+        </div>
+    );
 }
 
 export default HomeSlider;

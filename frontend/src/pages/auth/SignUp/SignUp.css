@@ -1,0 +1,124 @@
+/* auth.css */
+
+.authout-sigin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    max-height: 500px;
+    height: 100%;
+}
+
+.authin-sigin {
+    display: flex;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 1000px;
+    max-height: 650px;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+.authin-sigin .left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.authin-sigin .right {
+    flex: 2;
+    justify-content: center;
+}
+
+.authin-sigin .img {
+    width: 300px;
+    height: 150px;
+}
+
+.authin-sigin form {
+    display: flex;
+    flex-direction: column;
+}
+
+.authin-sigin .forminput_cont {
+    margin-bottom: 10px;
+
+}
+
+.authin-sigin label {
+    font-weight: bold;
+}
+
+.authin-sigin input[type="text"],
+.authin-sigin input[type="password"],
+.authin-sigin input[type="number"],
+.authin-sigin input[type="date"] {
+    /* max-width: 500px; */
+    padding: 0;
+    margin: 0px;
+    width: 480px;
+    /* width: ; */
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.authin-sigin .formerror {
+    color: red;
+    font-size: 14px;
+}
+
+.authin-sigin .checkbox-container {
+
+    width: 500px;
+    display: flex;
+    margin-top: 5px;
+    /* justify-content: space-between; */
+}
+
+.authin-sigin .checkbox-label{
+    margin-left: 10px;
+}
+
+.authin-sigin .checkbox-label-right{
+    margin-left: 50px;
+}
+
+
+.authin-sigin .main_button {
+    /* width: 90%; */
+    display: block;
+    width: 500px;
+    height: 45px;
+    padding: 0px;
+    background-color: #B84949;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 0px;
+    margin-top: 10px;
+    font-size: 20px bold;
+}
+
+.authin-sigin .main_button:hover {
+    background-color: #C13939;
+}
+
+.authlink {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.authlink a {
+    color: #C13939;
+}
+.forminput_cont-sex {
+    padding-left: 0px;
+    margin-left: 0px;
+}
+

@@ -5,24 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import com.example.SGP.Cinema.request.MovieRequest;
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "Movie",
@@ -60,35 +48,65 @@ public class Movie{
 	
 	@Column(name = "country")
 	private String country;
-	
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
-	@JoinTable(name = "Movie_Genre", 
-		joinColumns = {
-				@JoinColumn(name = "movie_id", referencedColumnName = "id")
-				
-		},
-		inverseJoinColumns = {
-				@JoinColumn(name = "genre_id", referencedColumnName = "id")
-		}
-		)
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "Movie_Genre",
+			joinColumns = {
+					@JoinColumn(name = "movie_id", referencedColumnName = "id")
+
+			},
+			inverseJoinColumns = {
+					@JoinColumn(name = "genre_id", referencedColumnName = "id")
+			}
+	)
 	@JsonProperty(value = "genres")
 	private List<Genre> genres;
 	
 	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
-	
-	@Column(name = "image")
-	private String image;
 
+	@Lob
+	@Column(name = "image")
+	private byte[] image;
+
+	@Lob
 	@Column(name = "large_image")
-	private String large_image;
+	private byte[] large_image;
 	
 	@Column(name = "trailer")
 	private String trailer;
-	
-	@Column(name = "actors")
-	private String actors;
-	
+
+	@ElementCollection
+	@CollectionTable(name = "movie_actors", joinColumns = @JoinColumn(name = "movie_id"))
+	@Column(name = "actor")
+	private List<String> actors = new ArrayList<>();
+
+	@ElementCollection
+	@CollectionTable(name = "movie_genres", joinColumns = @JoinColumn(name = "movie_id"))
+	@Column(name = "genre")
+	private List<String> genres2 = new ArrayList<>();
+
+
+	public byte[] getLarge_image() {
+		return large_image;
+	}
+
+	public void setLarge_image(byte[] large_image) {
+		this.large_image = large_image;
+	}
+
+	public List<String> getGenres2() {
+		return genres2;
+	}
+
+	public void setGenres2(List<String> genres2) {
+		this.genres2 = genres2;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public Movie() {}
 	
 	public Movie(MovieRequest req) {
@@ -110,10 +128,10 @@ public class Movie{
 		this.trailer = trailer;
 	}
 	
-	public String getActors() {
+	public List<String> getActors() {
 		return actors;
 	}
-	public void setActors(String actors) {
+	public void setActors(List<String> actors) {
 		this.actors = actors;
 	}
 
@@ -129,10 +147,8 @@ public class Movie{
 		return title;
 	}
 	
-	public void settitle(String title) {
-		this.title = title;
-	}
-	
+
+
 	public String getDescription() {
 		return description;
 	}
@@ -181,19 +197,19 @@ public class Movie{
 		this.genres = genre;
 	}
 	
-	public String getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 	
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
-	public String getLargeImage() {
+	public byte[] getLargeImage() {
 		return this.large_image;
 	}
 	
-	public void setLargeImage(String image) {
+	public void setLargeImage(byte[] image) {
 		this.large_image = image;
 	}
 	

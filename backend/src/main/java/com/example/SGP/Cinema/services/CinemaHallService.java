@@ -1,6 +1,7 @@
 package com.example.SGP.Cinema.services;
 
 import com.example.SGP.Cinema.entities.CinemaHall;
+import com.example.SGP.Cinema.entities.CinemaSeat;
 import com.example.SGP.Cinema.request.CinemaHallRequest;
 import com.example.SGP.Cinema.response.MyApiResponse;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public interface CinemaHallService {
 	MyApiResponse newHall(CinemaHall c);
 	MyApiResponse editHall(String hallID, CinemaHallRequest c);
 	MyApiResponse removeHall(String HallID);
-	
+
 	boolean isExistByName(String hallName);
 	boolean isExistById(String ID);
 }

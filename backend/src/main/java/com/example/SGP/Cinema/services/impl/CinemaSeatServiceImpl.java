@@ -2,6 +2,7 @@ package com.example.SGP.Cinema.services.impl;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.example.SGP.Cinema.entities.CinemaHall;
 import com.example.SGP.Cinema.entities.CinemaSeat;
@@ -55,6 +56,15 @@ public class CinemaSeatServiceImpl implements CinemaSeatService {
 		}
 	}
 
+	public void saveSeat(CinemaSeat seat) {
+		hallSeatRepo.save(seat);
+	}
+
+	@Override
+	public Optional<CinemaSeat> findSeatByHallAndPosition(String hallId, int row, int col){
+		return hallSeatRepo.findByCinemaHallIdAndRowIndexAndColIndex(hallId,row,col);
+	}
+
 	@Override
 	public void CreateListSeats(CinemaHall hall) {
 		for (int r = 0; r < hall.getTotalRow(); r++)
@@ -67,6 +77,16 @@ public class CinemaSeatServiceImpl implements CinemaSeatService {
 	@Override
 	public boolean isExist(String hallID, int row, int column) {
 		return hallSeatRepo.findByCinemaHallIdAndRowIndexAndColIndex(hallID, row, column).isPresent();
+	}
+
+	@Override
+	public List<CinemaSeat> getSeatsByHall(String hallId){
+		return hallSeatRepo.findByCinemaHallId(hallId);
+	}
+
+	@Override
+	public void deleteSeat(CinemaSeat existingSeat){
+		hallSeatRepo.delete(existingSeat);
 	}
 
 	@Override

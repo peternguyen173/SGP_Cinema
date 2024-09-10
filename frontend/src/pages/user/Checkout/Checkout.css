@@ -1,0 +1,109 @@
+/* Checkout.css */
+.ticket {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.ticket h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.ticket p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.ticket img {
+    margin: 20px 0;
+    max-width: 100%;
+    height: auto;
+}
+
+.ticket button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.ticket button:hover {
+    background-color: #45a049;
+}
+
+.ticket button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.ticket .error {
+    color: red;
+    margin-top: 10px;
+}
+.qr-code {
+    flex: 0.5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qr-image {
+    max-width: 30rem;
+    max-height: 30rem;
+}
+
+.wrapper {
+    margin-top: 23rem;
+    width: 40rem;
+    background: #ccc;
+    border-radius: 6px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 0 3rem 3rem;
+    color: #333;
+}
+
+.wrapper img {
+    width: 10rem;
+    margin-top: 2rem;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.wrapper h2 {
+    font-size: 38px !important;
+    font-weight: 500;
+    margin: 3rem 0 1rem;
+}
+
+.wrapper button {
+    width: 100%;
+    margin-top: 5rem;
+    padding: 1rem 0;
+    background: #6fd649;
+    color: #fff;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.wrapper p {
+    font-size: 14px !important;
+}

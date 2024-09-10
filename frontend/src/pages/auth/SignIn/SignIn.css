@@ -2,6 +2,7 @@
 
 .authout {
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
     padding-top: 250px;
@@ -11,6 +12,7 @@
 
 .authin {
     display: flex;
+    position: relative;
     background-color: #f2f2f2;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -87,7 +89,8 @@
     cursor: pointer;
     margin: 0px;
     margin-top: 10px;
-    font-size: 20px bold;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .authin .main_button:hover {

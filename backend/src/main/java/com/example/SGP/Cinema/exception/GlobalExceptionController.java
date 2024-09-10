@@ -37,13 +37,20 @@ public class GlobalExceptionController extends ResponseEntityExceptionHandler {
 		ErrorResponse error = new ErrorResponse(exception.getMessage(), HttpStatus.LOCKED);
 		return new ResponseEntity< >(error, HttpStatus.LOCKED);
 	}
-	
+
 	@ExceptionHandler(MyBadRequestException.class)
 	@ResponseBody
 	public ResponseEntity<ErrorResponse> badRequest(MyBadRequestException exception) {
-		ErrorResponse error = new ErrorResponse(exception.getMessage(), HttpStatus.BAD_REQUEST);
-		return new ResponseEntity< >(error, HttpStatus.BAD_REQUEST);
+		ErrorResponse errorResponse = exception.getErrorResponse();
+		return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
+//
+//	@ExceptionHandler(MyBadRequestException.class)
+//	@ResponseBody
+//	public ResponseEntity<ErrorResponse> badRequest(MyBadRequestException exception) {
+//		ErrorResponse error = new ErrorResponse(exception.getMessage(), HttpStatus.BAD_REQUEST);
+//		return new ResponseEntity< >(error, HttpStatus.BAD_REQUEST);
+//	}
 	
 	@ExceptionHandler(MyNotFoundException.class)
 	@ResponseBody

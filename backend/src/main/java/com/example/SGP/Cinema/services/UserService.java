@@ -42,7 +42,8 @@ public interface UserService extends UserDetailsService {
 	MyApiResponse getURIforgetPassword(String email) throws Exception;
 	MyApiResponse checkReocveryCode(String code);
 	MyApiResponse setNewPassword(String code, String password);
-	
+	MyApiResponse setNewPassword2(String username, String password);
+
 	int countAccFromIP(String client_ip);
 
 }

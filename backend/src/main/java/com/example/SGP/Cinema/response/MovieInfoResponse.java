@@ -3,6 +3,7 @@ package com.example.SGP.Cinema.response;
 import com.example.SGP.Cinema.entities.Comment;
 import com.example.SGP.Cinema.entities.Genre;
 import com.example.SGP.Cinema.entities.Movie;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +17,13 @@ public class MovieInfoResponse {
 	private String language;
 	private String releaseDate;
 	private String country;
-	private String image;
-	private String large_image;
+	private byte[] image;
+	private byte[] large_image;
 	private String trailer;
-	private String actors;
-	private List<Genre> genres;
+	private List<String> actors;
+	private List<String> genres;
 	private List<CommentResponse> comments;
-	
+
 	public MovieInfoResponse(Movie m) {
 		this.id = m.getId();
 		this.title = m.getTitle();
@@ -34,12 +35,12 @@ public class MovieInfoResponse {
 		this.actors = m.getActors();
 		this.image = m.getImage();
 		this.large_image = m.getLargeImage();
-		this.genres = m.getGenres();
+		this.genres = m.getGenres2();
 		this.durationInMins = m.getDurationInMins();
 		this.comments = this.convertType(m.getComments());
 	}
 
-	public MovieInfoResponse(Long id, String title, String image, String large_image, List<Genre> genre, int durationInMins, List<Comment> comment) {
+	public MovieInfoResponse(Long id, String title, byte[] image, byte[] large_image, List<String> genre, int durationInMins, List<Comment> comment) {
 		this.id = id;
 		this.title = title;
 		this.image = image;
@@ -77,26 +78,26 @@ public class MovieInfoResponse {
 		return this.trailer;
 	}
 
-	public String getActors() {
+	public List<String> getActors() {
 		return this.actors;
 	}
 
-	public String getImage() {
+	public byte[] getImage() {
 		return this.image;
 	}
 
-	public String getLargeImage() {
+	public byte[] getLargeImage() {
 		return this.large_image;
 	}
 
-	public List<Genre> getGenres() {
+	public List<String> getGenres() {
 		return this.genres;
 	}
 
 	public int getDurationInMins() {
 		return durationInMins;
 	}
-	
+
 	public List<CommentResponse> getComments() {
 		return this.comments;
 	}
@@ -109,15 +110,15 @@ public class MovieInfoResponse {
 		this.title = title;
 	}
 
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
-	public void setLargeImage(String image) {
+	public void setLargeImage(byte[] image) {
 		this.large_image = image;
 	}
 
-	public void setGenre(List<Genre> genre) {
+	public void setGenre(List<String> genre) {
 		this.genres = genre;
 	}
 
@@ -125,12 +126,12 @@ public class MovieInfoResponse {
 	public void setDurationInMins(int durationInMins) {
 		this.durationInMins = durationInMins;
 	}
-	
+
 	private List<CommentResponse> convertType(List<Comment> comments) {
 		List<CommentResponse> data = new ArrayList<CommentResponse>();
 		for (Comment c : comments)
 			data.add(new CommentResponse(c));
 		return data;
 	}
-	
+
 }
