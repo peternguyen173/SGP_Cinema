@@ -18,6 +18,7 @@ import com.example.SGP.Cinema.services.BookingService;
 import com.example.SGP.Cinema.services.PaymentService;
 import com.example.SGP.Cinema.services.UserService;
 import com.example.SGP.Cinema.utils.VNPay;
+import jakarta.persistence.LockModeType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -119,27 +120,28 @@ public class BookingServiceImpl implements BookingService {
 	public BookingResponse createBooking(String username, BookingRequest bookingReq) {
 		if (bookingReq.getSeatsId().size() > 4)
 			throw new MyBadRequestException("You can not reverse more than 4 seats at the time.");
-		
+
 		Account user = userREPO.getByUsername(username).orElseThrow(() -> new MyNotFoundException("User is not found"));
 		if (user.getStatus().equals(UserStatus.BLACKLISTED.name()))
 			throw new MyAccessDeniedException("You are not allowed to book ticket");
-		
+
 		CinemaShow show = showREPO.findById(bookingReq.getShowId()).orElseThrow(() -> new MyNotFoundException("Show is not found"));
 		int total_tickets_of_user_from_show = bookingREPO.countByShowId(show.getId());
 		if (total_tickets_of_user_from_show == this.MAX_TICKETS_PER_SHOW)
 			throw new MyLockedException("You have already " + this.MAX_TICKETS_PER_SHOW + " tickets in this show, so you can pay no more tickets");
 		if (this.seatsAreFull(show))
 			throw new MyLockedException("Sorry, seats of this show are full. Please choose another show");
-		
+
 		List<ShowSeat> seats = new ArrayList<>();
-		for (String seat_id : this.removeDuplicate(bookingReq.getSeatsId())) {
-			ShowSeat seat = this.getSeatFromStatus(seat_id, show, ESeatStatus.AVAILABLE);
-			if (seat == null)
-				throw new MyConflictExecption("Seat ID " + seat_id + " is reserved");
-			
-			seat.setStatus(ESeatStatus.PENDING);
-			ShowSeat seatSaved = showSeatREPO.save(seat);
-			seats.add(seatSaved);
+		for (String seatId : this.removeDuplicate(bookingReq.getSeatsId())) {
+			// Sử dụng Pessimistic Lock để khóa ghế ngay lập tức trong cơ sở dữ liệu
+			ShowSeat seat = showSeatREPO.findByIdAndLock(seatId, show.getId())
+					.orElseThrow(() -> new MyConflictExecption("Seat ID " + seatId + " is not found"));
+
+			// Kiểm tra trạng thái ghế xem nó có sẵn không
+			if (!(seat.getStatus().equals(ESeatStatus.AVAILABLE.name()))) {
+				throw new MyConflictExecption("Seat ID " + seatId + " is already reserved.");
+			}
 		}
 
 		Booking booking = new Booking(user, show, seats);
